@@ -53,17 +53,15 @@ function saveSearchResults(data) {
         dbo.collection("search_result").insertMany(albums, {
           ordered: false,
         });
-        db.close();
       } catch (err) {
         console.log("Error: " + err);
-        db.close();
       }
     }
   );
 }
 
 async function searchLikeRequest(request) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     MongoClient.connect(
       "mongodb+srv://ms_albums:" +
         process.env.DATABASE_PASSWORD +
@@ -76,7 +74,6 @@ async function searchLikeRequest(request) {
           .find({ name: { $regex: request, $options: "i" } })
           .toArray(function (err, result) {
             if (err) throw err;
-            db.close();
             resolve(result);
           });
       }
