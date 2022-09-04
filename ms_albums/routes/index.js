@@ -3,6 +3,12 @@ var router = express.Router();
 var spotifyApi = require("../spotifyApi");
 var MongoClient = require("mongodb").MongoClient;
 
+//  GET home page
+
+router.get("/", function (res) {
+  res.status(200).json({ message: "Welcome to the Albums API" });
+});
+
 // Get Albums
 
 router.get("/albums/:request", function (req, res) {
