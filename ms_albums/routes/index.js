@@ -17,11 +17,19 @@ router.get("/albums/:request", function (req, res) {
       .searchAlbums(req.params.request, {
         limit: 50,
       })
-      .then(function (data) {
+      .then(async function (data) {
         saveSearchResults(data);
-        searchLikeRequest(req.params.request).then(function (data) {
-          res.status(200).json(data);
-        });
+        searchLikeRequest(req.params.request).then(
+          await function (data) {
+            if (data.length > 0) {
+              return new Promise((resolve) => {
+                resolve(res.status(200).json(data));
+              });
+            } else {
+              res.status(404).json({ message: "No albums found" });
+            }
+          }
+        );
       });
   } catch (err) {
     console.log("Error: " + err);
