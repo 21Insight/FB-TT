@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <form [formGroup]="formGroup">
+      <div class="input-group mb-3">
+        <input
+          id="albumSearch"
+          type="text"
+          class="form-control"
+          placeholder="Search for an album"
+          aria-label="albumSearch"
+          aria-describedby="button-addon2"
+          formControlName="albumSearch"
+          (keypress)="keyPressAlphaNumeric($event)"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="Search"
+          (click)="getAlbums()"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+    <div class=""></div>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Album</th>
+            <th>Artist</th>
+            <th>Year</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let album of albums">
+            <td>{{ album.image }}</td>
+            <td>{{ album.name }}</td>
+            <td>{{ album.artist }}</td>
+            <td>{{ album.year }}</td>
+            <td>{{ album.url }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
