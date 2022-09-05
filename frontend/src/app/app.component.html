@@ -1,49 +1,84 @@
-<div class="container">
-  <div class="row justify-content-md-center">
-    <form [formGroup]="formGroup">
-      <div class="input-group mb-3">
-        <input
-          id="albumSearch"
-          type="text"
-          class="form-control"
-          placeholder="Search for an album"
-          aria-label="albumSearch"
-          aria-describedby="button-addon2"
-          formControlName="albumSearch"
-          (keypress)="keyPressAlphaNumeric($event)"
-        />
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          id="Search"
-          (click)="getAlbums()"
-        >
-          Search
-        </button>
+<div class="container fb-centered">
+  <div class="col-md-8">
+    <div class="row justify-content-md-center">
+      <form [formGroup]="formGroup">
+        <div class="input-group mb-3">
+          <input
+            id="albumSearch"
+            type="text"
+            class="form-control"
+            placeholder="Search for an album"
+            aria-label="albumSearch"
+            aria-describedby="button-addon2"
+            formControlName="albumSearch"
+            (keypress)="keyPressAlphaNumeric($event)"
+          />
+          <button
+            class="btn btn-light"
+            type="button"
+            id="Search"
+            (click)="getAlbums()"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+      <div class="clearfix fb-separation"></div>
+      <div class="table-responsive" *ngIf="albums.length > 0">
+        <table class="table table-light table-striped table-sm fb-table-style">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Album</th>
+              <th>Artist</th>
+              <th>Year</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let album of albums
+                  | paginate: { itemsPerPage: 5, currentPage: page }
+              "
+            >
+              <td>
+                <img
+                  src="{{ album.image }}"
+                  class="card-img fb-img-max"
+                  alt="{{ album._id }}"
+                />
+              </td>
+              <td>{{ album.name }}</td>
+              <td>{{ album.artist }}</td>
+              <td>{{ album.year }}</td>
+              <td>
+                <img
+                  src="../assets/icons/fb-play.svg"
+                  class="fb-play-icon"
+                  (click)="goToAlbum(album.url)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="fb-pagination">
+          <pagination-controls
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </div>
       </div>
-    </form>
-    <div class=""></div>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Album</th>
-            <th>Artist</th>
-            <th>Year</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let album of albums">
-            <td>{{ album.image }}</td>
-            <td>{{ album.name }}</td>
-            <td>{{ album.artist }}</td>
-            <td>{{ album.year }}</td>
-            <td>{{ album.url }}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </div>
+<footer>
+  <div class="container-fluid fb-footer">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center">
+          © 2022 Copyright: Jose Cuervo with the power of Spotify
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

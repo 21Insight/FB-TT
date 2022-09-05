@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AlbumsService {
-  readonly API = 'https://fb-tt-backend.jcuervom.me/';
+  readonly API = 'https://fb-tt-backend.jcuervom.me';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

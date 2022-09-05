@@ -16,6 +16,7 @@ import {
 export class AppComponent implements OnInit {
   formGroup: FormGroup;
   albums: Array<Album> = [];
+  page: number;
 
   constructor(private fb: FormBuilder, private albumsService: AlbumsService) {}
 
